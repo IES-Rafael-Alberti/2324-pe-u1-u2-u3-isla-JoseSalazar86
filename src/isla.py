@@ -236,7 +236,8 @@ def obtener_nueva_posicion(posicion_jugador: tuple, movimiento: str) -> tuple:
     """
 
     direccion = MOVIMIENTOS(movimiento)
-    nueva_posicion = (posicion_jugador[FILAS] + direccion[FILAS], posicion_jugador[COLUMNAS] + direccion[COLUMNAS])
+    for posicionFila, posicionColumna in direccion:
+        nueva_posicion = posicion_jugador[FILAS] + direccion[FILAS], posicion_jugador[COLUMNAS] + direccion[COLUMNAS]
     return nueva_posicion
 
 
@@ -281,7 +282,7 @@ def imprimir_mapa(mapa: list):
     :param mapa: El mapa a imprimir.
     """
     for fila in mapa:
-        print(f"{fila + 1} ", end=' ')
+        print(fila)
 
 
 
@@ -321,7 +322,7 @@ def jugar():
     movimiento = pedir_movimiento(mapa)
     resultado_movimiento = None
     # Loop principal del juego. El juego termina cuando el jugador realizar movimiento SALIR.
-    while movimiento != SALIR and resultado_movimiento == TESORO_ENCONTRADO:
+    while movimiento != SALIR or resultado_movimiento == TESORO_ENCONTRADO:
 
         # Obtener la nueva posición del jugador y procesar el movimiento
         nueva_posicion = obtener_nueva_posicion(posicion_jugador)
